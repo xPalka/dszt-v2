@@ -1,0 +1,21 @@
+[I 2025-01-26 17:02:55,786] Trial 30 finished with value: 0.6376061797061514 and parameters: {'n_estimators': 438, 'learning_rate': 0.016231850352438043, 'num_leaves': 87, 'feature_fraction': 0.9037853433652636, 'subsample': 0.887427438380491, 'max_depth': 12, 'min_child_samples': 47, 'lambda_l1': 0.006031354808096041, 'lambda_l2': 0.0018169768342325443, 'max_bin': 225}.
+Best is trial 23 with value: 0.6375339288438311.
+
+
+    # Przestrzeń hiperparametrów
+    params = {
+        'n_estimators': trial.suggest_int('n_estimators', 100, 500),           # Liczba drzew
+        'learning_rate': trial.suggest_loguniform('learning_rate', 0.01, 0.1), # Współczynnik uczenia
+        'num_leaves': trial.suggest_int('num_leaves', 31, 100),                # Liczba liści
+        'feature_fraction': trial.suggest_uniform('feature_fraction', 0.8, 1.0), # Frakcja cech
+        'subsample': trial.suggest_uniform('subsample', 0.8, 1.0),             # Frakcja próbek
+        'max_depth': trial.suggest_int('max_depth', -1, 15),                   # Maksymalna głębokość
+        'min_child_samples': trial.suggest_int('min_child_samples', 20, 50),   # Minimalna liczba próbek w liściu
+        'lambda_l1': trial.suggest_loguniform('lambda_l1', 1e-3, 10.0),        # Regularyzacja L1
+        'lambda_l2': trial.suggest_loguniform('lambda_l2', 1e-3, 10.0),        # Regularyzacja L2
+        'max_bin': trial.suggest_int('max_bin', 127, 255),                     # Maksymalna liczba binów
+        'random_state': 42
+    }
+
+    # Model LightGBM
+    model = LGBMRegressor(objective='regression', metric='mse', **params)

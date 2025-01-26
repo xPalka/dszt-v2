@@ -1,0 +1,79 @@
+------------------------------------------------------------
+Rozmiar treningowy: (2947500, 79), walidacyjny: (2947498, 79)
+Rozmiar treningowy: (5894998, 79), walidacyjny: (2947498, 79)
+Rozmiar treningowy: (8842496, 79), walidacyjny: (2947498, 79)
+---------------
+MemoryError                               Traceback (most recent call last)
+Cell In[2], line 12
+     10 # Skalowanie
+     11 scaler = StandardScaler()
+---> 12 X_train_scaled = scaler.fit_transform(X_train)
+     13 X_val_scaled = scaler.transform(X_val)
+     15 print(f"Rozmiar treningowy: {X_train_scaled.shape}, walidacyjny: {X_val_scaled.shape}")
+
+File ~\PycharmProjects\ds-zt-LGBMRegressor\venv\Lib\site-packages\sklearn\utils\_set_output.py:319, in _wrap_method_output.<locals>.wrapped(self, X, *args, **kwargs)
+    317 @wraps(f)
+    318 def wrapped(self, X, *args, **kwargs):
+--> 319     data_to_wrap = f(self, X, *args, **kwargs)
+    320     if isinstance(data_to_wrap, tuple):
+    321         # only wrap the first output for cross decomposition
+    322         return_tuple = (
+    323             _wrap_data_with_container(method, data_to_wrap[0], X, self),
+    324             *data_to_wrap[1:],
+    325         )
+
+File ~\PycharmProjects\ds-zt-LGBMRegressor\venv\Lib\site-packages\sklearn\base.py:918, in TransformerMixin.fit_transform(self, X, y, **fit_params)
+    903         warnings.warn(
+    904             (
+    905                 f"This object ({self.__class__.__name__}) has a `transform`"
+   (...)
+    913             UserWarning,
+    914         )
+    916 if y is None:
+    917     # fit method of arity 1 (unsupervised transformation)
+--> 918     return self.fit(X, **fit_params).transform(X)
+    919 else:
+    920     # fit method of arity 2 (supervised transformation)
+    921     return self.fit(X, y, **fit_params).transform(X)
+
+File ~\PycharmProjects\ds-zt-LGBMRegressor\venv\Lib\site-packages\sklearn\preprocessing\_data.py:894, in StandardScaler.fit(self, X, y, sample_weight)
+    892 # Reset internal state before fitting
+    893 self._reset()
+--> 894 return self.partial_fit(X, y, sample_weight)
+
+File ~\PycharmProjects\ds-zt-LGBMRegressor\venv\Lib\site-packages\sklearn\base.py:1389, in _fit_context.<locals>.decorator.<locals>.wrapper(estimator, *args, **kwargs)
+   1382     estimator._validate_params()
+   1384 with config_context(
+   1385     skip_parameter_validation=(
+   1386         prefer_skip_nested_validation or global_skip_validation
+   1387     )
+   1388 ):
+-> 1389     return fit_method(estimator, *args, **kwargs)
+
+File ~\PycharmProjects\ds-zt-LGBMRegressor\venv\Lib\site-packages\sklearn\preprocessing\_data.py:1016, in StandardScaler.partial_fit(self, X, y, sample_weight)
+   1013         self.n_samples_seen_ += X.shape[0] - np.isnan(X).sum(axis=0)
+   1015     else:
+-> 1016         self.mean_, self.var_, self.n_samples_seen_ = _incremental_mean_and_var(
+   1017             X,
+   1018             self.mean_,
+   1019             self.var_,
+   1020             self.n_samples_seen_,
+   1021             sample_weight=sample_weight,
+   1022         )
+   1024 # for backward-compatibility, reduce n_samples_seen_ to an integer
+   1025 # if the number of samples is the same for each feature (i.e. no
+   1026 # missing values)
+   1027 if np.ptp(self.n_samples_seen_) == 0:
+
+File ~\PycharmProjects\ds-zt-LGBMRegressor\venv\Lib\site-packages\sklearn\utils\extmath.py:1107, in _incremental_mean_and_var(X, last_mean, last_variance, last_sample_count, sample_weight)
+   1105 else:
+   1106     T = new_sum / new_sample_count
+-> 1107     temp = X - T
+   1108     if sample_weight is not None:
+   1109         # equivalent to np.nansum((X-T)**2 * sample_weight, axis=0)
+   1110         # safer because np.float64(X*W) != np.float64(X)*np.float64(W)
+   1111         correction = _safe_accumulator_op(
+   1112             np.matmul, sample_weight, np.where(X_nan_mask, 0, temp)
+   1113         )
+
+MemoryError: Unable to allocate 6.94 GiB for an array with shape (11789994, 79) and data type float64

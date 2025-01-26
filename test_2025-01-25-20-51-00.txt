@@ -1,0 +1,11 @@
+Cross-Validation MSE: 0.7665 � 0.0068
+Model parameters: {'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 1.0, 'importance_type': 'split', 'learning_rate': 0.05, 'max_depth': -1, 'min_child_samples': 30, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 500, 'n_jobs': None, 'num_leaves': 50, 'objective': 'regression', 'random_state': None, 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 0.9, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'feature_fraction': 0.9, 'metric': 'mse', 'lambda_l1': 0.1, 'lambda_l2': 0.1, 'max_bin': 255, 'early_stopping_rounds': None, 'verbose': 1}
+percent_of_dataset: 0.5
+time: ok. 6h
+
+Poszczeg�lne MSE dla ka�dego folda:
+Fold 1: 0.7740
+Fold 2: 0.7546
+Fold 3: 0.7682
+Fold 4: 0.7643
+Fold 5: 0.7717

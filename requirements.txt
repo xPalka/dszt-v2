@@ -1,0 +1,11 @@
+notebook
+jupyter
+ipykernel
+dask
+numpy
+scikit-learn
+lightgbm
+pyarrow
+pandas
+fastparquet
+optuna
