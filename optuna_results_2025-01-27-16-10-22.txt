@@ -1,0 +1,2 @@
+Najlepsze parametry: {'n_estimators': 459, 'learning_rate': 0.033441061327066174, 'num_leaves': 85, 'feature_fraction': 0.8086691830052026, 'subsample': 0.9862178362318438, 'max_depth': 9, 'min_child_samples': 25, 'lambda_l1': 0.0049638961104124055, 'lambda_l2': 0.006126150398752788, 'max_bin': 254}
+Najlepszy wynik (MSE): 0.6385
